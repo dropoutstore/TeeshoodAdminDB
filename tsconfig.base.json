@@ -14,7 +14,10 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@admin/configs": ["configs/src/index.ts"],
+      "@admin/table-component": ["ui/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
