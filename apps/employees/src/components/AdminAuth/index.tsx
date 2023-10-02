@@ -42,7 +42,7 @@ export default function Admin({}: Props) {
             <Center className='h-full text-center' >
               <div>
                 <h1>
-                Teeshood Admin
+                Teeshood Employee
                 </h1>
             <Button
               size="lg"
@@ -66,7 +66,7 @@ export default function Admin({}: Props) {
                 }
               }}
             >
-              Admin Sign In
+              Employee Sign In
             </Button>
             {/* <Button onClick={()=>{
               const addAdmin = httpsCallable(functions,"addAdmin")
