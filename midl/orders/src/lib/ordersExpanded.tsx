@@ -10,9 +10,7 @@ import {
 } from 'firebase/firestore';
 import { httpsCallable } from 'firebase/functions';
 import React, { useEffect, useState } from 'react';
-import { ShowDesign } from '../products/designs';
-import { designType } from '../products/ProductsExpanded';
-
+import {ShowDesign,designType} from "@admin/products"
 type Props = {
   order: any;
 };

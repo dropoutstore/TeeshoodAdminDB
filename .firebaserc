@@ -1,0 +1,18 @@
+{
+  "projects": {
+    "default": "teeshood-a1052"
+  },
+  "targets": {
+    "teeshood-a1052": {
+      "hosting": {
+        "teeshood-test": [
+          "teeshood-test"
+        ],
+        "teeshood-test-employee": [
+          "teeshood-test-employee"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

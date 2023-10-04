@@ -70,7 +70,7 @@ export default function Admin({}: Props) {
             </Button>
             {/* <Button onClick={()=>{
               const addAdmin = httpsCallable(functions,"addAdmin")
-              addAdmin({email:"dropoutstore94@gmail.com"})
+              addAdmin({email:"debopamiitkgp@gmail.com"})
               
             }} >
               Grant Admin Role

@@ -15,7 +15,7 @@ import {
 import { db } from '@admin/configs';
 import OrdersExpanded from './ordersExpanded';
 
-export default function Orders() {
+export function Orders() {
   const [orders, setOrders] = useState<any[]>([]);
   useEffect(() => {
     const q = query(

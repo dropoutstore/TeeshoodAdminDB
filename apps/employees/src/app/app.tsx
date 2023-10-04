@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { NavBar } from '../components/navbar/Topbar';
-import Orders from '../pages/Orders';
 import { showNotification } from '@mantine/notifications';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth, db } from '@admin/configs';
@@ -12,9 +11,12 @@ import { LoadingOverlay } from '@mantine/core';
 import Admin from '../components/AdminAuth';
 import { Route, Routes } from 'react-router-dom';
 import Test from './test';
-import Products from '../pages/products';
 import { deleteField, doc, onSnapshot, updateDoc } from 'firebase/firestore';
 import { employeeClaimToken } from '../constants';
+import { Orders } from '@admin/orders';
+import { Products } from '@admin/products';
+import OrderComponent from '../pages/order';
+import ProductComponent from '../pages/product';
 
 export function App() {
   const dispatch = useDispatch();
@@ -73,8 +75,8 @@ else if(!user) return <Admin />
     <NavBar>
           <Routes>
             <Route path='/' element={<Test />} />
-            <Route path='/orders' element={<Orders />} />
-            <Route path='/products' element={<Products />} />
+            <Route path='/orders' element={<OrderComponent />} />
+            <Route path='/products' element={<ProductComponent />} />
       </Routes>
     </NavBar>
   );

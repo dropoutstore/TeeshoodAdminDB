@@ -29,6 +29,6 @@ export const auth = getAuth(app);
 const functions = getFunctions(app, 'asia-south1');
 export const analytics = getAnalytics(app);
 
-// connectFunctionsEmulator(functions, 'localhost', 5001);
+connectFunctionsEmulator(functions, 'localhost', 5001);
 
 export { functions };

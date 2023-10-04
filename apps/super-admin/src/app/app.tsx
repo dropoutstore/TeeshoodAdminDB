@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { NavBar } from '../components/navbar/Topbar';
-import Orders from '../pages/Orders';
 import { showNotification } from '@mantine/notifications';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from '@admin/configs';
+import {Orders} from "@admin/orders"
 import { IconX } from '@tabler/icons-react';
 import { setUser } from '../components/auth/reducer';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,8 +12,8 @@ import { LoadingOverlay } from '@mantine/core';
 import Admin from '../components/AdminAuth';
 import { Route, Routes } from 'react-router-dom';
 import Test from './test';
-import Products from '../pages/products';
 import Employee from '../pages/EmployeeManagement';
+import { Products } from '@admin/products';
 
 export function App() {
   const dispatch = useDispatch();

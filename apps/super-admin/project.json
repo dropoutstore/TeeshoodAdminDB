@@ -9,7 +9,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/apps/super-admin"
+        "outputPath": "dist/apps/super-admin/build"
       },
       "configurations": {
         "development": {

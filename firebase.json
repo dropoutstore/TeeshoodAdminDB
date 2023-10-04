@@ -1,0 +1,32 @@
+{
+  "hosting": [{
+    "public": "dist/apps/super-admin/build",
+    "target": "teeshood-test",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  },
+  {
+    "public": "dist/apps/employees/build",
+    "target": "teeshood-test-employee",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }]
+}

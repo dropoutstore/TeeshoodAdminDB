@@ -14,8 +14,8 @@ import { collection, doc, updateDoc } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
-import { defaultErrorMessage } from '../../constants';
-import { environment } from '../../environment';
+import { defaultErrorMessage } from '../../../../apps/super-admin/src/constants';
+import { environment } from '../../../../apps/super-admin/src/environment';
 import { designType } from './ProductsExpanded';
 import ProductDesigns from './designs';
 type Props = {
