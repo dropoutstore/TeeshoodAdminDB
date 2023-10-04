@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useEffect, useState } from 'react';
-import DataTable, { TableProps, TableStyles } from 'react-data-table-component';
+import DataTable, { ConditionalStyles, TableProps, TableStyles } from 'react-data-table-component';
 import {
   collection,
   deleteDoc,
@@ -21,14 +21,14 @@ import {
 } from 'firebase/firestore';
 import { db } from '@admin/configs';
 import { Button, Loader } from '@mantine/core';
-import logo from './LOGO.png';
+import "./style.css"
 export const TableComponent = ({
   loading,
 
   setData,
   setLoading,
   setLinkPaymentModal,
-
+conditionalRowStyles,
   environment,
   customStyles,
   tableProps,
@@ -50,6 +50,7 @@ export const TableComponent = ({
   >;
 
   customStyles?: TableStyles;
+  conditionalRowStyles?:ConditionalStyles<any>[]
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [lastVisibleRecords, setlastVisibleRecords] = useState<
@@ -88,7 +89,8 @@ export const TableComponent = ({
   };
   return (
     <DataTable
-      style={{ minHeight: '100vh', height: 1500 }}
+      style={{  }}
+
       {...tableProps}
       selectableRows
       progressPending={loading}
@@ -101,7 +103,33 @@ export const TableComponent = ({
       fixedHeader
       // expandOnRowClicked
       expandableRows
-      customStyles={customStyles}
+      conditionalRowStyles={conditionalRowStyles}
+      customStyles={customStyles??defaultCustomStyles}
     />
   );
+};
+
+const defaultCustomStyles:TableStyles  = {
+  table:{style:{minHeight:"100vh"}},
+  rows: {
+    style: {
+      minHeight: '60px',
+      paddingLeft: '15px',
+    },
+  },
+  headCells: {
+    style: {
+      minHeight: '80px',
+      paddingLeft: '20px',
+      paddingRight: '8px',
+      textAlign: 'center',
+    },
+  },
+  cells: {
+    style: {
+      paddingLeft: '10px',
+      paddingRight: '10px',
+      textAlign: 'center',
+    },
+  },
 };
