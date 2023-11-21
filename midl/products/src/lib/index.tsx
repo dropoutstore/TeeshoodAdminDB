@@ -3,6 +3,7 @@ import { TableComponent } from '@admin/table-component';
 import {  Chip, Skeleton, Title } from '@mantine/core';
 import {
   collection,
+  getDocs,
   limit,
   onSnapshot,
   orderBy,
@@ -12,7 +13,7 @@ import { db } from '@admin/configs';
 import OrdersExpanded from './ProductsExpanded';
 
 export function Products() {
-  const [orders, setOrders] = useState<any[]>([]);
+  const [products, setProducts] = useState<any[]>([]);
   useEffect(() => {
     const q = query(
       collection(db, 'Product'),
@@ -20,8 +21,10 @@ export function Products() {
       limit(10)
     );
 
+      // getDocs(q).then(docs=>setProducts(docs.docs.map(t=>t.data())))
+      // getDocs(collection(db, 'Product')).then(ll=>{console.log("total product",ll.size)})
     const unsubscribe = onSnapshot(q, (snapshot) => {
-      setOrders(snapshot.docs.map((t) => t.data()));
+      setProducts(snapshot.docs.map((t) => t.data()));
     });
 
     // Cleanup function
@@ -34,7 +37,7 @@ export function Products() {
       <br />
       <TableComponent
         tableProps={{
-          data:orders,
+          data:products,
           columns:[
             {
               name: 'Product ID',

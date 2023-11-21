@@ -1,6 +1,10 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useEffect, useState } from 'react';
-import DataTable, { ConditionalStyles, TableProps, TableStyles } from 'react-data-table-component';
+import DataTable, {
+  ConditionalStyles,
+  TableProps,
+  TableStyles,
+} from 'react-data-table-component';
 import {
   collection,
   deleteDoc,
@@ -21,14 +25,14 @@ import {
 } from 'firebase/firestore';
 import { db } from '@admin/configs';
 import { Button, Loader } from '@mantine/core';
-import "./style.css"
+import './style.css';
 export const TableComponent = ({
   loading,
 
   setData,
   setLoading,
   setLinkPaymentModal,
-conditionalRowStyles,
+  conditionalRowStyles,
   environment,
   customStyles,
   tableProps,
@@ -50,7 +54,7 @@ conditionalRowStyles,
   >;
 
   customStyles?: TableStyles;
-  conditionalRowStyles?:ConditionalStyles<any>[]
+  conditionalRowStyles?: ConditionalStyles<any>[];
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [lastVisibleRecords, setlastVisibleRecords] = useState<
@@ -89,8 +93,7 @@ conditionalRowStyles,
   };
   return (
     <DataTable
-      style={{  }}
-
+      style={{ overflowX: 'auto' }}
       {...tableProps}
       selectableRows
       progressPending={loading}
@@ -104,32 +107,35 @@ conditionalRowStyles,
       // expandOnRowClicked
       expandableRows
       conditionalRowStyles={conditionalRowStyles}
-      customStyles={customStyles??defaultCustomStyles}
+      customStyles={customStyles ?? defaultCustomStyles}
     />
   );
 };
 
-const defaultCustomStyles:TableStyles  = {
-  table:{style:{minHeight:"100vh"}},
+const defaultCustomStyles: TableStyles = {
+  table: { style: { minHeight: '100vh', overflow: 'auto' } },
   rows: {
     style: {
-      minHeight: '60px',
-      paddingLeft: '15px',
+      // minHeight: '60px',
+      // paddingLeft: '15px',
     },
   },
   headCells: {
     style: {
       minHeight: '80px',
-      paddingLeft: '20px',
-      paddingRight: '8px',
-      textAlign: 'center',
+      fontWeight:'bold'
     },
   },
   cells: {
     style: {
       paddingLeft: '10px',
       paddingRight: '10px',
-      textAlign: 'center',
+      whiteSpace: 'normal',
+      textOverflow: 'unset',
+      overflow: 'visible',
+      '&div:first-child': {
+        whiteSpace: 'normal',
+      },
     },
   },
 };

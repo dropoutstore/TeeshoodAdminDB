@@ -46,10 +46,10 @@ else if(!user) return <Admin />
   return (
     <NavBar>
           <Routes>
-            {/* <Route path='/' element={<Test />} /> */}
             <Route path='/' element={<Employee />} />
             <Route path='/orders' element={<Orders />} />
             <Route path='/products' element={<Products />} />
+            <Route path='/test' element={<Test />} />
       </Routes>
     </NavBar>
   );

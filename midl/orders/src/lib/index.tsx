@@ -1,7 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { TableComponent } from '@admin/table-component';
-import { Button, Chip, Title, Select, SegmentedControl } from '@mantine/core';
 import {
+  Button,
+  Chip,
+  Title,
+  Select,
+  SegmentedControl,
+  Group,
+  HoverCard,
+  Text,
+  Popover,
+  Card,
+  List,
+} from '@mantine/core';
+import {
+  Query,
   collection,
   doc,
   getDocs,
@@ -11,18 +24,35 @@ import {
   query,
   setDoc,
   updateDoc,
+  where,
 } from 'firebase/firestore';
 import { db } from '@admin/configs';
 import OrdersExpanded from './ordersExpanded';
 
-export function Orders() {
+export function Orders({
+  resellerId,
+  readOnly,
+}: {
+  resellerId?: string;
+  readOnly?: boolean;
+}) {
   const [orders, setOrders] = useState<any[]>([]);
   useEffect(() => {
-    const q = query(
-      collection(db, 'Orders'),
-      orderBy('created_at', 'desc'),
-      limit(10)
-    );
+    let q: Query;
+    if (resellerId) {
+      q = query(
+        collection(db, 'Orders'),
+        orderBy('created_at', 'desc'),
+        where('resellerId', '==', resellerId),
+        limit(10)
+      );
+    } else {
+      q = query(
+        collection(db, 'Orders'),
+        orderBy('created_at', 'desc'),
+        limit(10)
+      );
+    }
 
     const unsubscribe = onSnapshot(q, (snapshot) => {
       setOrders(snapshot.docs.map((t) => t.data()));
@@ -33,19 +63,27 @@ export function Orders() {
   }, []);
 
   return (
-    <div>
+    <div className="overflow-auto">
       <Title className="">Orders</Title>
       <br />
       <div className="flex justify-center p-3">
-      <SegmentedControl className='self-center' data={TH_ORDER_STATUSES} />
+        <SegmentedControl className="self-center" data={TH_ORDER_STATUSES} />
       </div>
       <TableComponent
         tableProps={{
           data: orders,
           columns: [
+            // name?: string | number | React.ReactNode;
+            // sortField?: string;
+            // cell?: (row: T, rowIndex: number, column: TableColumn<T>, id: string | number) => React.ReactNode;
+            // conditionalCellStyles?: ConditionalStyles<T>[];
+            // format?: Format<T> | undefined;
+            // selector?: Selector<T>;
+            // sortFunction?: ColumnSortFunction<T>;
             {
               name: 'Order ID',
-              selector: (row: any) => row.id,
+              selector: (row: any) => '#' + row.order_number,
+              maxWidth: '60px',
             },
             {
               name: 'Cusomer',
@@ -53,7 +91,9 @@ export function Orders() {
             },
             {
               name: 'Phone',
-              selector: (row: any) => row.phone,
+              selector: (row: any) => (
+                <Text className="w-fit">{row.phone}</Text>
+              ),
             },
             {
               name: 'Email',
@@ -78,16 +118,47 @@ export function Orders() {
             },
             {
               name: 'Payment',
-              selector: (row: any) =>
-                row.payment_gateway_names.map((pay: string) => (
-                  <Chip key={pay} size={'xs'} color="indigo" variant="light">
-                    {pay}
-                  </Chip>
-                )),
+              selector: (row: any) => (
+                <List>
+                  {row.payment_gateway_names.map(
+                    (pay: string, index: number) => (
+                      <List.Item>
+                        <Text size={'xs'} className="w-48">
+                          {pay}
+                        </Text>
+                      </List.Item>
+                    )
+                  )}
+                </List>
+              ),
             },
             {
               name: 'Item',
-              selector: (row: any) => row.line_items[0].name,
+              selector: (row: any) => {
+                return (
+                  <div className="flex gap-y-3 flex-col py-3">
+                    {row.line_items.map((item: any, index: number) => {
+                      return (
+                        <div className="grid grid-cols-3 gap-2">
+                          <Text
+                            className="col-span-2 border-r border-r-black border-solid border-y-0 border-l-0 pr-2"
+                            style={{
+                              whiteSpace: 'normal',
+                              textOverflow: 'unset',
+                              overflow: 'visible',
+                            }}
+                          >
+                            {item.quantity} X {item.title}
+                          </Text>
+                          <Text className="col-span-1 ">
+                            {item.variant_title}
+                          </Text>
+                        </div>
+                      );
+                    })}
+                  </div>
+                );
+              },
             },
           ],
           expandableRowsComponent: (order) => (
@@ -112,25 +183,19 @@ export function Orders() {
           {
             when: (row) => row.th_status === 'PRINT',
             style: {
-              backgroundColor: 'rgba(248, 148, 6, 0.9)',
-              color: 'white',
-              '&:hover': {
-                cursor: 'pointer',
-              },
+              backgroundColor: 'rgba(248, 148, 6, 0.3)',
             },
           },
           {
             when: (row) => row.th_status === 'PRINTCOMPLETE',
             style: {
-              backgroundColor: '#2DCCFF',
-              color: 'white',
+              backgroundColor: '#2DCCFF44',
             },
           },
           {
             when: (row) => row.th_status === 'SHIPPED',
             style: {
-              backgroundColor: '#56F000',
-              color: 'white',
+              backgroundColor: '#56F00044',
             },
           },
         ]}

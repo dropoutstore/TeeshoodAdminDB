@@ -74,9 +74,9 @@ else if(!user) return <Admin />
   return (
     <NavBar>
           <Routes>
-            <Route path='/' element={<Test />} />
             <Route path='/orders' element={<OrderComponent />} />
             <Route path='/products' element={<ProductComponent />} />
+            {/* <Route path='/' element={<Test />} /> */}
       </Routes>
     </NavBar>
   );

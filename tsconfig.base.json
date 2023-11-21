@@ -15,7 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@admin/cmi": ["cmi/src/index.ts"],
       "@admin/configs": ["configs/src/index.ts"],
+      "@admin/meta": ["meta/src/index.ts"],
       "@admin/orders": ["midl/orders/src/index.ts"],
       "@admin/products": ["midl/products/src/index.ts"],
       "@admin/table-component": ["ui/src/index.ts"]
