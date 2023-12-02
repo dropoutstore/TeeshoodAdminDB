@@ -78,7 +78,6 @@ export function AddNewAddress({
                 loading: false,
               });
             }
-            console.log(values);
           })}
         >
           <TextInput

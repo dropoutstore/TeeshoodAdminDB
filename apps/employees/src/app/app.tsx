@@ -27,7 +27,6 @@ export function App() {
       if (cred?.email) {
         const ref = doc(db, 'employees', cred.email);
         const idToken = await cred?.getIdTokenResult();
-        console.log("idToken",idToken.claims);
         if (!idToken?.claims[employeeClaimToken]) {
           await updateDoc(ref, { dashboardAction: deleteField() });
           showNotification({

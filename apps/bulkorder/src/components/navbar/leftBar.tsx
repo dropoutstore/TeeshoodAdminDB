@@ -12,6 +12,7 @@ import {
 } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import {
+  IconBrush,
   IconChevronLeft,
   IconChevronRight,
   IconClock,
@@ -134,6 +135,15 @@ export function NavSections({
             label={'Products'}
             setOpen={setOpen}
             name="products"
+          />
+           <LeftLink
+            path={'/CMI'}
+            icon={<IconBrush size={16} color="black" />}
+            color="#e0e0e0"
+            tooglesize={tooglesize}
+            label={'CMI'}
+            setOpen={setOpen}
+            name="cmi"
           />
            <LeftLink
             path={'/settings'}

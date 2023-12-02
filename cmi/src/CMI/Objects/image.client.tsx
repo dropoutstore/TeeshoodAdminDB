@@ -46,6 +46,13 @@ export function CMIImageComponent({
           scaleX={shapeProps.flipX ? -1 : 1}
           draggable
           name="shape"
+          onDragEnd={(e) => {
+            onChange({
+              ...shapeProps,
+              x: e.target.x(),
+              y: e.target.y(),
+            });
+          }}
           onTransformEnd={(e) => {
             // transformer is changing scale of the node
             // and NOT its width or height

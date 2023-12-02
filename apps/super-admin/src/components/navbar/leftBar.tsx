@@ -18,6 +18,7 @@ import {
   IconCreditCard,
   IconFolder,
   IconHome,
+  IconLetterT,
   IconLogout,
   IconMenuOrder,
   IconNotes,
@@ -133,6 +134,15 @@ export function NavSections({
             label={'Products'}
             setOpen={setOpen}
             name="Products"
+          />
+           <LeftLink
+            path={'/fonts'}
+            icon={<IconLetterT size={16} color="black" />}
+            color="#e0e0e0"
+            tooglesize={tooglesize}
+            label={'CMI Fonts'}
+            setOpen={setOpen}
+            name="cmiFonts"
           />
          {/* <LeftLink
             path={'/department'}

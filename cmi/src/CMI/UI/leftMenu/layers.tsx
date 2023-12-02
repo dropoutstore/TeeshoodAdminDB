@@ -10,15 +10,17 @@ import {
 } from 'react-beautiful-dnd';
 import { CMIObjectType, designHookType } from '../../hooks/designHooks.client';
 import { productHookType } from '../../hooks/productHooks.client';
+import { CMIHooksType } from '../../hooks';
+import { Title } from '@mantine/core';
 
 type Props = {
-  designHooks: designHookType;
-  productHook: productHookType;
+  CMIHooks: CMIHooksType;
 };
 
-export function LayerEditor({ designHooks, productHook }: Props) {
+export function LayerEditor({ CMIHooks }: Props) {
+  const { designHooks, productHooks } = CMIHooks;
   const { designs, setDesigns, setLoading, setSelectObject } = designHooks;
-  const { selectedSide } = productHook;
+  const { selectedSide } = productHooks;
   const selectedDesigns = designs[selectedSide.sideName];
   const setSelectedDesigns = (newDes: CMIObjectType[]) => {
     const target = { ...designs };
@@ -29,6 +31,11 @@ export function LayerEditor({ designHooks, productHook }: Props) {
 
   return (
     <div className="text-left w-full h-full ">
+      {selectedDesigns.length > 0 && (
+        <Title order={5} align="center">
+          {selectedSide.sideName ?? ''}
+        </Title>
+      )}
       <DragDropContext
         onDragEnd={(result: DropResult) => {
           // dropped outside the list
@@ -46,14 +53,14 @@ export function LayerEditor({ designHooks, productHook }: Props) {
             <div
               {...provided.droppableProps}
               ref={provided.innerRef}
-              className="rounded-lg p-4 overflow-auto"
+              className="rounded-lg p-2 overflow-auto"
               style={{
                 background: snapshot.isDraggingOver ? '#d1f7c3' : 'white',
                 height: '100%',
                 maxHeight: 600,
               }}
             >
-              {selectedDesigns ? (
+              {selectedDesigns.length > 0 ? (
                 selectedDesigns.map((design, index) => (
                   <div onClick={() => setSelectObject(design)}>
                     <Draggable
@@ -63,7 +70,7 @@ export function LayerEditor({ designHooks, productHook }: Props) {
                     >
                       {(provided, snapshot) => (
                         <div
-                          className="gap-2 flex p-4 bg-white rounded-md my-2 items-center"
+                          className="gap-2 flex bg-white rounded-md my-2 items-center"
                           ref={provided.innerRef}
                           {...provided.dragHandleProps}
                           {...provided.draggableProps}
@@ -74,12 +81,12 @@ export function LayerEditor({ designHooks, productHook }: Props) {
                               case 'image':
                                 return (
                                   <>
+                                    <p>image</p>
                                     <img
                                       src={design.src}
-                                      className="max-w-[24px] max-h-[24px]"
+                                      className="max-w-[48px] max-h-12"
                                       alt="uploaded"
                                     />
-                                    <p>image</p>
                                   </>
                                 );
                               case 'text':

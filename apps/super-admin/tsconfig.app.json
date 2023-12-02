@@ -19,5 +19,5 @@
     "src/**/*.spec.jsx",
     "src/**/*.test.jsx"
   ],
-  "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx", "../../midl/products/src/lib/addDesign.tsx"]
+  "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx", "../../midl/products/src/lib/addDesign.tsx", "../../cmifonts/src/lib/index.tsx", "../../cmifonts/src/lib/loadCustomFont.ts", "../../cmifonts/src/lib/FontUpload.tsx", "../../cmifonts/src/lib/FontPreview.tsx"]
 }

@@ -53,7 +53,6 @@ export default function OrdersExpanded({ order }: Props) {
     // Call the fetchProduct function
     fetchProduct();
   }, [order.id]);
-  console.log('product from', products);
 
   return (
     <div className="text-center">

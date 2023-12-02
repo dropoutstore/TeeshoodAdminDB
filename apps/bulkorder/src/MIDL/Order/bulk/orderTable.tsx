@@ -45,7 +45,6 @@ export function BulkOrdersTable() {
     );
 
     const unsubscribe = onSnapshot(q, (snapshot) => {
-      console.log(snapshot.docs.map((r) => r.data()));
       setOrders(snapshot.docs.map((t) => t.data()));
     });
 

@@ -7,45 +7,49 @@ import { designHookType } from '../../hooks/designHooks.client';
 import ImageEditor from './ImageEditor';
 import QRcode from './QRcode';
 import LeftMenuWrapper from './LeftMenuWrapper';
+import { CMIHooksType } from '../../hooks';
+// import { EditMenu } from '../Edit/editMenu';
+import { TextEditor } from './TextEditor';
+import { EditOptions } from '../TopEdit/EditOptions';
+import { useMediaQuery } from '@mantine/hooks';
 
 type Props = {
   leftTabHook: CMILeftTabType;
-  productHook: productHookType;
-  designHooks: designHookType;
+  CMIHooks: CMIHooksType;
 };
 
-export default function LeftMenuExpanded({
-  leftTabHook,
-  productHook,
-  designHooks,
-}: Props) {
+export default function LeftMenuExpanded({ leftTabHook, CMIHooks }: Props) {
+  const { productHooks, designHooks } = CMIHooks;
+  const matches = useMediaQuery('(min-width: 56.25em)');
   const Menus = () => {
     switch (leftTabHook.openedTab) {
       case 'product':
-        return <Products productHook={productHook} />;
-        case 'edit':
-            return <Products productHook={productHook} />;
+        return <Products productHook={productHooks} />;
+      case 'text':
+        return <TextEditor CMIHooks={CMIHooks} />;
       case 'layers':
-        return (
-          <LayerEditor designHooks={designHooks} productHook={productHook} />
-        );
+        return <LayerEditor CMIHooks={CMIHooks} />;
       case 'image':
-        return (
-          <ImageEditor designHooks={designHooks} productHook={productHook} leftTabHook={leftTabHook} />
-        );
+        return <ImageEditor CMIHooks={CMIHooks} leftTabHook={leftTabHook} />;
       case 'QR':
-        return (
-          <QRcode
-            designHooks={designHooks}
-            //   productHook={productHook}
-          />
-        );
+        return <QRcode CMIHooks={CMIHooks} />;
       default:
-        return <></>;
+        return (
+          <div />
+        );
     }
   };
+  if (designHooks.selectedObject && matches)
+    return (
+      <div className="w-80 fixed md:relative bg-white p-4 rounded-lg h-full border-solid border border-gray-400">
+        <EditOptions CMIHooks={CMIHooks} />
+      </div>
+    );
   return (
-    <LeftMenuWrapper opened={Boolean(leftTabHook.openedTab)} leftTabHook={leftTabHook}>
+    <LeftMenuWrapper
+      opened={Boolean(leftTabHook.openedTab)}
+      leftTabHook={leftTabHook}
+    >
       <Menus />
     </LeftMenuWrapper>
   );

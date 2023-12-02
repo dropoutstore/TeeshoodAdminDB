@@ -1,28 +1,26 @@
 import { Group, Layer, Line, Rect, Stage, Transformer } from 'react-konva';
 import { KonvaEventObject } from 'konva/lib/Node';
 import React, { useRef, useState } from 'react';
-import { designHookType } from '../../hooks/designHooks.client';
 import { SNAP_THRESHOLD, SNAP_LINE_STYLE } from '../../utils/snapGrids';
-import { productHookType } from '../../hooks/productHooks.client';
 import { ObjectRender } from './objectRender';
 import { CMIReferenceTypes } from '.';
+import { CMIHooksType } from '../../hooks';
 
 // import CMIImage from './objects/image.client';
 type Props = {
-  productHook: productHookType;
-  designHooks: designHookType;
+  CMIHooks: CMIHooksType;
   scaleFactor: number;
   references: CMIReferenceTypes;
 };
 
 export function DesignArea({
-  designHooks,
-  productHook,
+  CMIHooks,
   scaleFactor,
   references,
 }: Props) {
-  const { setSelectObject } = designHooks;
-  const { selectedSide } = productHook;
+  const { setSelectObject,selectedObject } =  CMIHooks.designHooks;
+  const { selectedSide } = CMIHooks.productHooks;
+  const {trRef} = references
   const containerWidth = 500 * scaleFactor;
   const deselect = () => setSelectObject(null);
   const checkDeselect = (e: KonvaEventObject<MouseEvent | TouchEvent>) => {
@@ -267,7 +265,6 @@ export function DesignArea({
               strokeWidth={2}
               stroke={'#000'}
               clipFunc={(ctx: any) => {
-                // if (type === "rect" && width && height) {
                 ctx.beginPath();
                 ctx.moveTo(left, top);
                 ctx.lineTo(left + width, top);
@@ -284,11 +281,6 @@ export function DesignArea({
                 ctx.lineTo(left, top);
                 ctx.quadraticCurveTo(left, top, left, top);
                 ctx.closePath();
-                // } else if (type === "circle") {
-                //     ctx.beginPath()
-                //     ctx.arc(x, y, radius, 0, Math.PI * 2)
-                //     ctx.closePath()
-                // }
               }}
             >
               <Rect
@@ -313,8 +305,7 @@ export function DesignArea({
               />
               <ObjectRender
                 references={references}
-                productHook={productHook}
-                designHooks={designHooks}
+                CMIHooks={CMIHooks}
                 scaleFactor={scaleFactor}
                 onDragMove={onDragMove}
                 setHLines={setHLines}
@@ -328,6 +319,35 @@ export function DesignArea({
             {vLines.map((item: any, i) => (
               <Line key={i} {...item} strokeScaleEnabled={false} />
             ))}
+             {Boolean(selectedObject) && (
+              <Transformer
+                ref={trRef}
+                onDragMove={onDragMove}
+                onDragEnd={() => {
+                  setHLines([]);
+                  setVLines([]);
+                }}
+                anchorCornerRadius={8}
+                enabledAnchors={
+                  selectedObject?.type === 'image'
+                    ? ['top-left', 'top-right', 'bottom-left', 'bottom-right']
+                    : ['middle-right', 'middle-left']
+                }
+                // anchorSize={25}
+                rotateAnchorOffset={8}
+                rotationSnaps={[
+                  30, 45, 60, 90, 120, 135, 150, 180, 0, -30, -45, -60, -90,
+                  -120, -135, -150,
+                ]}
+                boundBoxFunc={(oldBox, newBox) => {
+                  // limit resize
+                  if (newBox.width < 5 || newBox.height < 5) {
+                    return oldBox;
+                  }
+                  return newBox;
+                }}
+              />
+            )}
           </Layer>
         </Stage>
       </div>

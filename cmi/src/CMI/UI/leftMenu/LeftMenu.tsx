@@ -9,25 +9,18 @@ import {
   IconUpload,
   TablerIconsProps,
 } from '@tabler/icons-react';
-import {
-  CMILeftTabType,
-  useLeftTabHooks,
-} from '../../hooks/leftTabHooks.client';
 import LeftMenuExpanded from './LeftMenuExpanded';
-import { productHookType } from '../../hooks/productHooks.client';
-import { designHookType } from '../../hooks/designHooks.client';
+import { CMIHooksType } from '../../hooks';
 
 type Props = {
-  productHook: productHookType;
-  designHooks: designHookType;
+  CMIHooks: CMIHooksType;
 };
 
-export default function LeftMenu({ productHook, designHooks }: Props) {
-  const leftTab: CMILeftTabType = useLeftTabHooks();
-  const { openedTab, setOpenedTab } = leftTab;
+export default function LeftMenu({ CMIHooks }: Props) {
+  const { setOpenedTab } = CMIHooks.leftTab;
   return (
-    <div className="flex gap-x-2 md:max-h-none">
-      <div className="fixed text-center bottom-1 flex-grow md:relative md:w-20 flex md:flex-col md:gap-6 md:bottom-auto border-solid border border-gray-400 p-2 rounded-lg">
+    <div className=" flex gap-x-2 md:max-h-none">
+      <div className="fixed text-center bottom-1 shadow-md md:shadow-none flex-grow md:relative md:w-20 flex md:flex-col md:gap-6 md:bottom-auto md:border-solid border md:border-gray-400 p-2 rounded-lg bg-white z-50">
         {[
           {
             name: 'Products',
@@ -75,19 +68,18 @@ export default function LeftMenu({ productHook, designHooks }: Props) {
               onClick={menu.onClick}
               className="p-3 hover:bg-slate-50 rounded-md cursor-pointer"
             >
-              <ActionIcon className="mx-auto" size={36} onClick={menu.onClick}>
+              <ActionIcon className="mx-auto" size={36} onClick={()=>{
+                CMIHooks.designHooks.setSelectObject(null)
+                menu.onClick()
+                
+                }}>
                 {menu.icon}
               </ActionIcon>
             </div>
           </Tooltip>
         ))}
       </div>
-
-      <LeftMenuExpanded
-        leftTabHook={leftTab}
-        productHook={productHook}
-        designHooks={designHooks}
-      />
+      <LeftMenuExpanded leftTabHook={CMIHooks.leftTab} CMIHooks={CMIHooks} />
     </div>
   );
 }

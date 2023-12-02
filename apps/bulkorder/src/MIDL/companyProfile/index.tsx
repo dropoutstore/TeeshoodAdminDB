@@ -44,7 +44,6 @@ export default function CompanyRegistration({
       });
     }
   }, [editMode]);
-  console.log(form.errors);
 
   return (
     <div className="p-2 md:p-6 max-w-lg mx-auto">

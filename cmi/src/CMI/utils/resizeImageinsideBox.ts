@@ -1,27 +1,25 @@
 export function resizeDimensions(
   maxWidth: number,
-  maxHeight:number,
-  currentWidth:number,
-  currentHeight:number,
+  maxHeight: number,
+  currentWidth: number,
+  currentHeight: number
 ) {
   // Calculate the aspect ratio
   const aspectRatio = currentWidth / currentHeight;
 
-  // Initialize new dimensions to be the same as the current ones
-  let newWidth = currentWidth;
-  let newHeight = currentHeight;
+  // Initialize new dimensions
+  let newWidth, newHeight;
 
-  // Check if the current width is greater than the max width
-  if (currentWidth > maxWidth) {
+  // If width is the limiting factor
+  if (maxWidth / maxHeight < aspectRatio) {
     newWidth = maxWidth;
-    newHeight = Math.round(newWidth / aspectRatio);
+    newHeight = Math.round(maxWidth / aspectRatio);
   }
-
-  // Check if the new height is still greater than the max height
-  if (newHeight > maxHeight) {
+  // If height is the limiting factor
+  else {
     newHeight = maxHeight;
-    newWidth = Math.round(newHeight * aspectRatio);
+    newWidth = Math.round(maxHeight * aspectRatio);
   }
 
-  return {width: newWidth, height: newHeight};
+  return { width: newWidth, height: newHeight };
 }

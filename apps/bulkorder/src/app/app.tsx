@@ -34,7 +34,6 @@ export function App() {
     });
     return () => Unsubscribe();
   }, []);
-  console.log(user, companyProfile);
 
   if (user === undefined) return <LoadingOverlay visible />;
   else if (!user) return <Admin />;
@@ -52,6 +51,7 @@ export function App() {
             <Route path="bulk/checkout/:orderId" element={<BulkCheckOut />} />
             <Route path="bulk/pay/:orderId" element={<Payment />} />
             <Route path="products" element={<Products />} />
+            <Route path="CMI" element={<Products />} />
             <Route path="orders" element={<Orders />} />
           </Routes>
         </NavBar>

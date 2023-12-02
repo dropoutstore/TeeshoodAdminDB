@@ -68,7 +68,6 @@ export default function ProductForm({
       );
     }
   }, [form2.values.color]);
-  console.log(form2.errors);
   
   return (
     <div className="relative">

@@ -2,17 +2,18 @@ import React from 'react';
 import { CMIProductSide } from '@admin/meta';
 import { Button } from '@mantine/core';
 import { productHookType } from '../../hooks/productHooks.client';
+import { CMIHooksType } from '../../hooks';
 
 type Props = {
-  productHook: productHookType;
+  CMIHooks: CMIHooksType;
   // sides: CMIProductSide[];
   // setSelectedSide: React.Dispatch<React.SetStateAction<CMIProductSide>>;
   // selectedSide: CMIProductSide;
 };
 
-export function SidePick({ productHook }: Props) {
+export function SidePick({ CMIHooks:{designHooks,productHooks} }: Props) {
   const { selectedProduct, selectedColour, selectedSide, setSelectedSide } =
-    productHook;
+    productHooks;
   const sides = selectedProduct.colours.find(
     (color) => color.name === selectedColour.name
   )?.sides;
@@ -29,7 +30,10 @@ export function SidePick({ productHook }: Props) {
           //     ? 'bg-green-700 text-white'
           //     : 'bg-white'
           // } border border-gray-300 rounded-md w-20`}
-          onClick={() => setSelectedSide(side)}
+          onClick={() => {
+            setSelectedSide(side)
+            designHooks.setSelectObject(null)
+          }}
         >
           {side.sideName}
         </Button>

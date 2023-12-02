@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@admin/cmi": ["cmi/src/index.ts"],
+      "@admin/cmifonts": ["cmifonts/src/index.ts"],
       "@admin/configs": ["configs/src/index.ts"],
       "@admin/meta": ["meta/src/index.ts"],
       "@admin/orders": ["midl/orders/src/index.ts"],

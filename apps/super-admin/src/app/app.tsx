@@ -14,6 +14,7 @@ import { Route, Routes } from 'react-router-dom';
 import Test from './test';
 import Employee from '../pages/EmployeeManagement';
 import { Products } from '@admin/products';
+import { CMIFonts } from '@admin/cmifonts';
 
 export function App() {
   const dispatch = useDispatch();
@@ -49,6 +50,7 @@ else if(!user) return <Admin />
             <Route path='/' element={<Employee />} />
             <Route path='/orders' element={<Orders />} />
             <Route path='/products' element={<Products />} />
+            <Route path='/fonts' element={<CMIFonts />} />
             <Route path='/test' element={<Test />} />
       </Routes>
     </NavBar>

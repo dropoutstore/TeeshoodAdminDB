@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { DesignArea } from './DesignArea';
 import { productHookType } from '../../hooks/productHooks.client';
 import { designHookType } from '../../hooks/designHooks.client';
 import { SidePick } from './sidePick.client';
 import { ObjectRender } from './objectRender';
+import { CMIHooksType } from '../../hooks';
+import { useMediaQuery } from '@mantine/hooks';
 
 export interface CMIReferenceTypes {
   shapeRef: React.MutableRefObject<any>;
@@ -11,13 +13,13 @@ export interface CMIReferenceTypes {
 }
 
 type Props = {
-  productHook: productHookType;
-  designHooks: designHookType;
+  CMIHooks: CMIHooksType;
 };
 
-export default function Center({ designHooks, productHook }: Props) {
+export default function Center({ CMIHooks }: Props) {
+  const { designHooks,productHooks } = CMIHooks;
   const shapeRef = React.useRef<any>(
-    designHooks?.designs[productHook.selectedSide.sideName]?.map(() =>
+    designHooks?.designs[productHooks.selectedSide.sideName]?.map(() =>
       React.createRef()
     )
   );
@@ -27,15 +29,22 @@ export default function Center({ designHooks, productHook }: Props) {
     trRef,
   };
   const [scaleFactor, setScaleFactor] = useState(1);
+  const matches = useMediaQuery('(min-width: 56.25em)');
+  useEffect(() => {
+    if(matches) setScaleFactor(1)
+    else setScaleFactor(0.6)
+    return () => {
+      setScaleFactor(1)
+    }
+  }, [matches])
   return (
-    <div className="w-full">
+    <div >
       <DesignArea
         scaleFactor={scaleFactor}
-        productHook={productHook}
-        designHooks={designHooks}
+        CMIHooks={CMIHooks}
         references={references}
       />
-      <SidePick productHook={productHook} />
+      <SidePick CMIHooks={CMIHooks} />
     </div>
   );
 }

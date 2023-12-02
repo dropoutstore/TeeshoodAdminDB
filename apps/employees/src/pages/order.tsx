@@ -10,7 +10,6 @@ type Props = {};
 
 export default function OrderComponent({}: Props) {
   const { claims } = useSelector((state: RootState) => state.user);
-  console.log('claims', claims);
 
   if (!claims['orders']) return <div>Denied : Contact admin for access</div>;
   return <Orders />;
