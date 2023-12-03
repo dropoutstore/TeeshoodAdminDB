@@ -1,10 +1,6 @@
 import { BulkOrdersTable } from './bulk/orderTable';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../app/store';
-import { Button } from '@mantine/core';
-import { IconPlus } from '@tabler/icons-react';
 import { BulkOrder } from './bulk/BulkOrder';
-import POD from './POD';
+import { POD } from './POD';
 
 export default function Orders() {
  

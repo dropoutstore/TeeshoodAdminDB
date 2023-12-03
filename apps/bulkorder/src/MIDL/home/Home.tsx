@@ -1,6 +1,6 @@
 import React from 'react'
 import { BulkOrder } from '../Order/bulk/BulkOrder'
-import POD from '../Order/POD'
+import {POD} from '../Order/POD'
 import { Title } from '@mantine/core'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../app/store'

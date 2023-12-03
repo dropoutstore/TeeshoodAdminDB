@@ -18,8 +18,6 @@ import {
   Title,
 } from '@mantine/core';
 import { IconArrowLeft, IconX } from '@tabler/icons-react';
-import { ImageUpload } from '../ImageUpload';
-import { convertImageToDataURI } from './imageToDataUri';
 import BulkDesign from './Design';
 
 

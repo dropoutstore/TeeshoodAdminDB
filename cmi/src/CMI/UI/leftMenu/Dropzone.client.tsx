@@ -1,14 +1,16 @@
 import { IconUpload, IconX } from '@tabler/icons-react';
 import { useState } from 'react';
-import { useDropzone, FileRejection } from 'react-dropzone';
+import { useDropzone, FileRejection, Accept } from 'react-dropzone';
 import './styles.css';
 import { List, Text } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
 
 export function DropzoneComponent({
   addImage,
+  acceptedFiles,
 }: {
   addImage: (imageFile: File) => void;
+  acceptedFiles?: Accept;
 }) {
   // const [imageFile, setImage] = useState('');
   const onDrop = async (
@@ -32,7 +34,7 @@ export function DropzoneComponent({
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     maxFiles: 1,
-    accept: {
+    accept: acceptedFiles ?? {
       'image/*': [],
     },
     validator: (file) =>
