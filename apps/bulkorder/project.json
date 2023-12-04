@@ -34,7 +34,8 @@
         },
         "production": {
           "buildTarget": "bulk-orders:build:production",
-          "hmr": false
+          "hmr": false,
+          "host":true
         }
       }
     },

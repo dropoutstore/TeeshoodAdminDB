@@ -26,7 +26,7 @@ export function EditOptions({ CMIHooks }: Props) {
                     item.element
                   ) : (
                     <Tooltip label={item.label}>
-                      <ActionIcon onClick={item.onClick} className="m-1">
+                      <ActionIcon onClick={item.onClick} className="m-1"  variant="outline">
                         {item.icon}
                       </ActionIcon>
                     </Tooltip>
@@ -50,7 +50,7 @@ export function EditOptions({ CMIHooks }: Props) {
                     item.element
                   ) : (
                     <Tooltip label={item.label}>
-                      <ActionIcon onClick={item.onClick} className="m-1">
+                      <ActionIcon onClick={item.onClick} className="m-1"  variant="outline">
                         {item.icon}
                       </ActionIcon>
                     </Tooltip>
@@ -101,7 +101,7 @@ export const EditBase = ({ CMIHooks }: Props) => {
                 item.element
               ) : (
                 <Tooltip label={item.label}>
-                  <ActionIcon onClick={item.onClick} className="m-1">
+                  <ActionIcon onClick={item.onClick} className="m-1"  variant="outline">
                     {item.icon}
                   </ActionIcon>
                 </Tooltip>

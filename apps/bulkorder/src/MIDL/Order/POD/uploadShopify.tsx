@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Papa from 'papaparse';
 import { Table, Button, Group, FileInput, TextInput } from '@mantine/core';
 import { IconUpload } from '@tabler/icons-react';
-import { PODOrderColumns, PODOrderSelectedColumns } from './column';
+import { PODFileColumns } from './column';
 import { useForm } from '@mantine/form';
 import { DropzoneComponent } from '../ImageUpload';
 import { PODFileType } from './types';
@@ -21,20 +21,20 @@ export const UploadPODOrdersTable: React.FC = () => {
         header: true,
         complete: (results) => {
           const data = results.data as any[];
-          // @ts-ignore
-          const processedData: PODOrder[] = data.map((row) => {
+
+          const processedData: PODFileType[] = data.map((row) => {
             const target: any = {};
-            PODOrderColumns.forEach((key) => {
-              target[key] = row[key];
+            PODFileColumns.forEach((key) => {
+              target[key.field] = row[key.columnName];
             });
             return target;
           });
-          // @ts-ignore
           form.setFieldValue('orders', processedData);
         },
       });
     }
   };
+  console.log(form.values.orders);
 
   return (
     <div>
@@ -43,22 +43,39 @@ export const UploadPODOrdersTable: React.FC = () => {
           <Table striped highlightOnHover withBorder>
             <thead>
               <tr>
-                {PODOrderColumns.map((key) => (
-                  <th key={key}>{key}</th>
+                <th
+                // className="fixed z-10"
+                >
+                  Designs
+                </th>
+                {/* <th>
+                  <div className="w-48" />
+                </th> */}
+                {PODFileColumns.map((key) => (
+                  <th key={key.field}>{key.columnName}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
               {form.values.orders.map((order, index) => (
-                <tr key={index}>
-                  {PODOrderColumns.map((key, index) => (
+                <tr key={index} className="h-72">
+                  <td
+                  // className="fixed w-96 z-10"
+                  >
+                    {/* <Button>Add Design</Button> */}
+                    <img src={'https://picsum.photos/200/300'} alt="" />
+                  </td>
+                  {/* <td>
+                    <div className="w-48"></div>
+                  </td> */}
+                  {PODFileColumns.map((key) => (
                     <td>
                       {/* 
                                 // @ts-ignore */}
                       <TextInput
                         className="w-full min-w-max"
-                        key={key}
-                        {...form.getInputProps(`orders.${index}.${key}`)}
+                        key={key.field}
+                        {...form.getInputProps(`orders.${index}.${key.field}`)}
                       />
                     </td>
                   ))}

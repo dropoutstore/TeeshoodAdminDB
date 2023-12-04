@@ -35,10 +35,10 @@ export function App() {
     return () => Unsubscribe();
   }, []);
 
-  if (user === undefined) return <LoadingOverlay visible />;
-  else if (!user) return <Admin />;
-  else if (companyProfile === undefined) return <LoadingOverlay visible />;
-  else if (user && companyProfile) {
+  // if (user === undefined) return <LoadingOverlay visible />;
+  // else if (!user) return <Admin />;
+  // else if (companyProfile === undefined) return <LoadingOverlay visible />;
+  // else if (user && companyProfile) {
     return (
       <div>
         <NavBar>
@@ -57,14 +57,14 @@ export function App() {
         </NavBar>
       </div>
     );
-  } else if (user && !companyProfile) {
-    return (
-      <div>
-        <img src={LOGO} className="m-4 h-16 block mx-auto" alt="" />
-        <CompanyRegistration />
-      </div>
-    );
-  }
+  // } else if (user && !companyProfile) {
+  //   return (
+  //     <div>
+  //       <img src={LOGO} className="m-4 h-16 block mx-auto" alt="" />
+  //       <CompanyRegistration />
+  //     </div>
+  //   );
+  // }
 }
 
 export default App;

@@ -20,7 +20,7 @@ type Props = {
 
 export default function LeftMenuExpanded({ leftTabHook, CMIHooks }: Props) {
   const { productHooks, designHooks } = CMIHooks;
-  const matches = useMediaQuery('(min-width: 56.25em)');
+  const matches = useMediaQuery('(min-width: 768px)');
   const Menus = () => {
     switch (leftTabHook.openedTab) {
       case 'product':

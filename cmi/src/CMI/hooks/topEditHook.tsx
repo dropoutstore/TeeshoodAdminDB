@@ -22,6 +22,7 @@ import {
   IconPaint,
   IconRotate,
   IconSpace,
+  IconTextSize,
   IconTransform,
   IconTypography,
   IconWand,
@@ -52,7 +53,7 @@ export type topEditMenuType =
   | 'alignRight'
   | 'alignVertical'
   | 'alignHorizontal'
-  //   | '
+  | 'fontSize'
   | null;
 
 export interface CMIEditItemType {
@@ -331,8 +332,43 @@ export default function useTopEditHook({
           ),
         },
         {
+          name: 'fontSize',
+          icon: <IconTextSize />,
+          label: 'Font Size',
+          onClick: () => setSelectedMenu('fontSize'),
+          element: (
+            <div className="grid grid-cols-3 items-center gap-1">
+              <Slider
+                className="col-span-2"
+                value={selectedObject?.fontSize}
+                max={120}
+                min={0}
+                onChange={(v) => {
+                  if (selectedObject) {
+                    // @ts-ignore
+                    setSelectObject({ ...selectedObject, fontSize: v });
+                  }
+                }}
+              />
+              <NumberInput
+                className="col-span-1"
+                classNames={{ label: 'h-0' }}
+                value={selectedObject?.fontSize}
+                max={120}
+                min={0}
+                onChange={(v: number) => {
+                  if (selectedObject) {
+                    // @ts-ignore
+                    setSelectObject({ ...selectedObject, fontSize: v });
+                  }
+                }}
+              />
+            </div>
+          ),
+        },
+        {
           name: 'color',
-          icon: <IconPaint />,
+          icon: <IconBoxMargin />,
           label: 'Text Color',
           onClick: () => setSelectedMenu('color'),
           element: (
@@ -346,19 +382,20 @@ export default function useTopEditHook({
         },
       ],
     },
+    
     {
       section: 'Text Outline',
       items: [
         {
           name: 'strokeColor',
-          icon: <IconBoxMargin />,
+          icon: <IconPaint />,
           label: 'Stroke',
           onClick: () => setSelectedMenu('strokeColor'),
           element: (
             <ColorPickerComponent
-              color={selectedObject?.fill ?? ''}
+              color={selectedObject?.stroke ?? ''}
               // @ts-ignore
-              setColor={(c) => setSelectObject({ ...selectedObject, fill: c })}
+              setColor={(c) => setSelectObject({ ...selectedObject, stroke: c })}
               title="Stroke Color"
             />
           ),

@@ -7,7 +7,7 @@ import logo from '../../assets/LOGO.png';
 export function NavBar({ children }: { children: React.ReactNode }) {
   const [tooglesize, setTooglesize] = useState(true);
   const [open, setOpen] = useState(false);
-  const mediaQuery = useMediaQuery('(min-width: 640px)');
+  const mediaQuery = useMediaQuery('(min-width: 768px)');
   return (
     <AppShell
       padding={0}

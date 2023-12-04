@@ -45,7 +45,7 @@ export default function Employee({}: Props) {
   const [filterOpen, setFilterOpen] = useState(false);
   const [editData, setEditData] = useState<staffType | null>(null);
   const [loading, setloading] = useState(false);
-  const mediaQuery = useMediaQuery('(min-width: 900px)');
+  const mediaQuery = useMediaQuery('(min-width: 768px)');
   // const [filterText, setFilterText] = useState<null|string>(null)
   const q = query(staffCollection);
   useEffect(() => {

@@ -6,15 +6,15 @@ export default defineConfig({
   cacheDir: '../../node_modules/.vite/bulk-orders',
 
   server: {
-    port: 4200,
-    host: 'localhost',
+    port: 4200, 
+    host: '0.0.0.0',
     https:true,
     cors:true,
   },
 
   preview: {
     port: 4300,
-    host: 'localhost',
+    host: '0.0.0.0',
   },
 
   plugins: [react(), nxViteTsPaths(),basicSsl()],

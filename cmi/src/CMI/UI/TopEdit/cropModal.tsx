@@ -34,13 +34,13 @@ export function CropModal({
     img.src = imageSrc;
     img.onload = () => {
       const stageShape = resizeDimensions(
-        800,
-        800,
+        500,
+        500,
         imgShape.width,
         imgShape.height
       );
       setStageConfig(stageShape);
-      setCropConfig((t) => ({ ...t, ...stageShape }));
+      // setCropConfig((t) => ({ ...t, ...stageShape }));
       setLoading(false);
       setImage(img);
     };
@@ -94,7 +94,8 @@ export function CropModal({
                   height: Math.max(node.height() * scaleY, 5),
                 });
               }}
-              onClick={(e) => setSelectedShape(e.target)}
+              onClick={(e) => setSelectedShape(e.currentTarget)}
+              onTap={(e) => setSelectedShape(e.currentTarget)}
             />
             {selectedShape && (
               <Transformer

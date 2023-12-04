@@ -11,6 +11,7 @@ import {
 } from '@tabler/icons-react';
 import LeftMenuExpanded from './LeftMenuExpanded';
 import { CMIHooksType } from '../../hooks';
+import { useMediaQuery } from '@mantine/hooks';
 
 type Props = {
   CMIHooks: CMIHooksType;
@@ -18,9 +19,19 @@ type Props = {
 
 export default function LeftMenu({ CMIHooks }: Props) {
   const { setOpenedTab } = CMIHooks.leftTab;
+  const isDesktop = useMediaQuery('(min-width: 768px)');
+  console.log(isDesktop);
+  const iconProps: TablerIconsProps = {
+    size: isDesktop ? 48 : 48,
+    stroke: 1,
+    color: 'black',
+  };
   return (
     <div className=" flex gap-x-2 md:max-h-none">
-      <div className="fixed text-center bottom-1 shadow-md md:shadow-none flex-grow md:relative md:w-20 flex md:flex-col md:gap-6 md:bottom-auto md:border-solid border md:border-gray-400 p-2 rounded-lg bg-white z-50">
+      <div
+        style={{ transform: isDesktop ? 'none' : 'translate(-50%,-50%)' }}
+        className="fixed text-center bottom-1 shadow-md md:shadow-none flex-grow md:relative md:w-20 flex md:flex-col md:gap-6 md:bottom-auto md:border-solid border md:border-gray-400 md:p-2 rounded-lg bg-white z-50 left-1/2 md:left-auto"
+      >
         {[
           {
             name: 'Products',
@@ -66,13 +77,16 @@ export default function LeftMenu({ CMIHooks }: Props) {
           >
             <div
               onClick={menu.onClick}
-              className="p-3 hover:bg-slate-50 rounded-md cursor-pointer"
+              className="p-2 hover:bg-slate-50 rounded-md cursor-pointer"
             >
-              <ActionIcon className="mx-auto" size={36} onClick={()=>{
-                CMIHooks.designHooks.setSelectObject(null)
-                menu.onClick()
-                
-                }}>
+              <ActionIcon
+                className="mx-auto"
+                size={isDesktop ? 36 : 30}
+                onClick={() => {
+                  CMIHooks.designHooks.setSelectObject(null);
+                  menu.onClick();
+                }}
+              >
                 {menu.icon}
               </ActionIcon>
             </div>
@@ -83,5 +97,3 @@ export default function LeftMenu({ CMIHooks }: Props) {
     </div>
   );
 }
-
-const iconProps: TablerIconsProps = { size: 48, stroke: 1, color: 'black' };

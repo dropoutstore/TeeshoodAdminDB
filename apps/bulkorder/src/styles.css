@@ -13,3 +13,19 @@ a {
     text-decoration: none;
     color: inherit;
 }
+.tscroll {
+    width: 400px;
+    overflow-x: scroll;
+    margin-bottom: 10px;
+    border: solid black 1px;
+  }
+  
+  .tscroll table td:first-child {
+    position: sticky;
+    left: 0;
+    background-color: #ddd;
+  }
+  
+  .tscroll td, .tscroll th {
+    border-bottom: dashed #888 1px;
+  }

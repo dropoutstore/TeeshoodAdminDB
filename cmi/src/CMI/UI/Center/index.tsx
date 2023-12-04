@@ -29,7 +29,7 @@ export default function Center({ CMIHooks }: Props) {
     trRef,
   };
   const [scaleFactor, setScaleFactor] = useState(1);
-  const matches = useMediaQuery('(min-width: 56.25em)');
+  const matches = useMediaQuery('(min-width: 768px)');
   useEffect(() => {
     if(matches) setScaleFactor(1)
     else setScaleFactor(0.6)

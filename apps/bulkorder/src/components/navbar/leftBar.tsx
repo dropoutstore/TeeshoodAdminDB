@@ -51,7 +51,7 @@ export default function LeftBar({
   setOpen,
 }: Props) {
   const theme = useMantineTheme();
-  const mediaQuery = useMediaQuery('(min-width: 640px)');
+  const mediaQuery = useMediaQuery('(min-width: 768px)');
   return (
     <div
     // onMouseEnter={()=>setTooglesize(false)}
@@ -104,7 +104,7 @@ export function NavSections({
   setTooglesize,
   setOpen,
 }: NavSectionsType) {
-  const mediaQuery = useMediaQuery('(min-width: 640px)');
+  const mediaQuery = useMediaQuery('(min-width: 768px)');
   return (
     <>
       <Navbar.Section grow component={ScrollArea} mx="-xs" px={'xs'}>

@@ -14,7 +14,7 @@ interface MainLinkProps {
 }
 
 export default function LeftLink({ icon, color, label, tooglesize, path,setOpen, name }: MainLinkProps) {
-  const mediaQuery = useMediaQuery('(min-width: 640px)');
+  const mediaQuery = useMediaQuery('(min-width: 768px)');
   return (
     <Link to={path} onClick={() => { if (setOpen) setOpen(false); }} >
       <HoverCard position='right' shadow="md">

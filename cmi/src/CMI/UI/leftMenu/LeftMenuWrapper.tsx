@@ -13,7 +13,7 @@ export default function LeftMenuWrapper({
   leftTabHook,
   opened,
 }: Props) {
-  const matches = useMediaQuery('(min-width: 56.25em)');
+  const matches = useMediaQuery('(min-width: 768px)');
   if (matches)
     return (
       <div className="w-80 md:relative bg-white p-4 rounded-lg h-full border-solid border border-gray-400">
@@ -22,7 +22,7 @@ export default function LeftMenuWrapper({
     );
   else if (opened) {
     return (
-      <Modal opened={opened} onClose={() => leftTabHook.setOpenedTab(null)}>
+      <Modal fullScreen opened={opened} onClose={() => leftTabHook.setOpenedTab(null)}>
         {children}
       </Modal>
     );

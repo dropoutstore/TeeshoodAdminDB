@@ -7,7 +7,10 @@ import MenWhiteLeftImg from './men-white-left.png';
 
 export interface CMIproductType {
   name: string;
-  description: string;
+  description: React.ReactNode;
+  basePrice: number;
+  productCode: string;
+
   sizes: { size: string; price: number }[];
   GSM: number[];
   printInfo: string[];
@@ -23,8 +26,16 @@ export interface CMIProductColour {
   name: string;
   colorCode: string;
   bgColour: string;
+  printingCost: {
+    DTG: number;
+    DTF: number;
+    screen: number;
+    embroidery: number;
+  };
 }
 export interface CMIProductSide {
+  printHeight: number;
+  printWidth: number;
   sideName: string;
   image: string;
   flip?: boolean;
@@ -37,6 +48,8 @@ export const CMIproducts: CMIproductType[] = [
   {
     name: 'Unisex T-Shirt Men',
     printTypes: ['DTF', 'DTG', 'Screen'],
+    basePrice:178,
+    
     GSM: [250, 350, 400, 500],
     sizes: [
       { size: 'XS', price: 300 },
