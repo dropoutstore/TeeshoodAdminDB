@@ -119,39 +119,41 @@ export const CMIproducts: CMIproductType[] = [
       {
         bgColour: '#00ff00',
         colorCode: '#00ff00',
+        printingCost:{
+          DTF: 1,
+          DTG: 1.5,
+          screen: 30,
+          embroidery: 25,
+        },
         sides: [
           {
             sideName: 'Front',
             image: MenBlackFrontImg,
-            tm: 70,
-            lm: 150,
-            w: 210,
-            h: 380,
+            printHeight: 20,
+            printWidth: 16,
+            ...positions.front,
           },
           {
             sideName: 'Back',
             image: MenBlackBackImg,
-            tm: 100,
-            lm: 140,
-            w: 200,
-            h: 350,
+            printHeight: 20,
+            printWidth: 16,
+            ...positions.back
           },
           {
             sideName: 'Left',
             image: MenBlackLeftImg,
-            tm: 180,
-            lm: 250,
-            w: 150,
-            h: 200,
+            printHeight: 20,
+            printWidth: 16,
+            ...positions.left
           },
           {
             sideName: 'Right',
             image: MenBlackLeftImg,
             flip: true,
-            tm: 180,
-            lm: 250,
-            w: 150,
-            h: 200,
+            printHeight: 20,
+            printWidth: 16,
+            ...positions.right
           },
         ],
         name: 'green',
