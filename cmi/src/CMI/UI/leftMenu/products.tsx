@@ -26,6 +26,10 @@ export default function Products({ productHook }: Props) {
     selectedColour,
     setSelectedColour,
     setSelectedProduct,
+    selectedGSM,
+    setSelectedGSM,
+    selectedPrintType,
+    setSelectedPrintType,
   } = productHook;
   const [sizeChartModal, setSizeChartModal] = useState(false);
   return (
@@ -49,10 +53,26 @@ export default function Products({ productHook }: Props) {
       <ChangeProduct setSelectedProduct={setSelectedProduct} />
       <Divider className="pb-8" />
       <Radio.Group
+        name="GSM"
+        label="Select GSM"
+        value={selectedGSM.toString()}
+        // description="Prices may change according to GSM."
+        withAsterisk
+        onChange={(v) => setSelectedGSM(parseInt(v))}
+      >
+        <Group mt="xs">
+          {selectedProduct.GSM.map((pType) => (
+            <Radio key={pType} value={pType.toString()} label={pType} />
+          ))}
+        </Group>
+      </Radio.Group>
+      <Radio.Group
         name="printType"
         label="Select Print Type"
         description="Prices may change according to print type."
         withAsterisk
+        value={selectedPrintType}
+        onChange={(v) => setSelectedPrintType(v)}
       >
         <Group mt="xs">
           {selectedProduct.printTypes.map((pType) => (

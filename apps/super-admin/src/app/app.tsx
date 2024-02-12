@@ -3,7 +3,7 @@ import { NavBar } from '../components/navbar/Topbar';
 import { showNotification } from '@mantine/notifications';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from '@admin/configs';
-import {Orders} from "@admin/orders"
+import { Orders } from '@admin/orders';
 import { IconX } from '@tabler/icons-react';
 import { setUser } from '../components/auth/reducer';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,6 +15,8 @@ import Test from './test';
 import Employee from '../pages/EmployeeManagement';
 import { Products } from '@admin/products';
 import { CMIFonts } from '@admin/cmifonts';
+import { PODOrdersTable } from '../pages/POD/orderTable';
+import { CMIProductForm, CMIProductsList } from '@admin/cmi';
 
 export function App() {
   const dispatch = useDispatch();
@@ -42,16 +44,22 @@ export function App() {
     });
     return () => Unsubscribe();
   }, []);
-if(user === undefined) return <LoadingOverlay visible />
-else if(!user) return <Admin />
+  if (user === undefined) return <LoadingOverlay visible />;
+  else if (!user) return <Admin />;
   return (
     <NavBar>
-          <Routes>
-            <Route path='/' element={<Employee />} />
-            <Route path='/orders' element={<Orders />} />
-            <Route path='/products' element={<Products />} />
-            <Route path='/fonts' element={<CMIFonts />} />
-            <Route path='/test' element={<Test />} />
+      <Routes>
+        <Route path="/" element={<Employee />} />
+        <Route path="/orders" element={<Orders />} />
+        <Route path="/POD" element={<PODOrdersTable />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/fonts" element={<CMIFonts />} />
+        <Route path="/settings">
+          <Route index element={<CMIProductsList />} />
+          <Route path="add" element={<CMIProductForm />} />
+          <Route path="edit/:id" element={<CMIProductForm />} />
+        </Route>
+        <Route path="/test" element={<Test />} />
       </Routes>
     </NavBar>
   );

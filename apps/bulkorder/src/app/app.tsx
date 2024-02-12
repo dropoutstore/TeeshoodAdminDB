@@ -18,6 +18,8 @@ import { Payment } from '../MIDL/payment/payment';
 import Home from '../MIDL/home/Home';
 import { BulkCheckOut } from '../MIDL/Order/bulk/BulkCheckOut';
 import {Products} from '../MIDL/products'
+import { PODCheckout } from '../MIDL/Order/POD/PODCheckout';
+import { DesignSelector } from '../MIDL/Order/POD/selectDesign';
 
 export function App() {
   const dispatch = useDispatch();
@@ -35,10 +37,10 @@ export function App() {
     return () => Unsubscribe();
   }, []);
 
-  // if (user === undefined) return <LoadingOverlay visible />;
-  // else if (!user) return <Admin />;
-  // else if (companyProfile === undefined) return <LoadingOverlay visible />;
-  // else if (user && companyProfile) {
+  if (user === undefined) return <LoadingOverlay visible />;
+  else if (!user) return <Admin />;
+  else if (companyProfile === undefined) return <LoadingOverlay visible />;
+  else if (user && companyProfile) {
     return (
       <div>
         <NavBar>
@@ -50,21 +52,22 @@ export function App() {
             />
             <Route path="bulk/checkout/:orderId" element={<BulkCheckOut />} />
             <Route path="bulk/pay/:orderId" element={<Payment />} />
-            <Route path="products" element={<Products />} />
+            <Route path="pod/checkout/:orderId" element={<PODCheckout />} />
+            <Route path="products" element={<DesignSelector onSelect={(v)=>console.log(v)} />} />
             <Route path="CMI" element={<Products />} />
             <Route path="orders" element={<Orders />} />
           </Routes>
         </NavBar>
       </div>
     );
-  // } else if (user && !companyProfile) {
-  //   return (
-  //     <div>
-  //       <img src={LOGO} className="m-4 h-16 block mx-auto" alt="" />
-  //       <CompanyRegistration />
-  //     </div>
-  //   );
-  // }
+  } else if (user && !companyProfile) {
+    return (
+      <div>
+        <img src={LOGO} className="m-4 h-16 block mx-auto" alt="" />
+        <CompanyRegistration />
+      </div>
+    );
+  }
 }
 
 export default App;

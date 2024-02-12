@@ -1,10 +1,11 @@
 export const createImage = (url: string | null) =>
-    new Promise((resolve, reject) => {
-        const image = new Image()
-        image.addEventListener('load', () => resolve(image))
-        image.addEventListener('error', (error) => reject(error))
-        image.setAttribute('crossOrigin', 'anonymous') // needed to avoid cross-origin issues on CodeSandbox
+new Promise((resolve, reject) => {
         if (!url) return
+        const image = new Image()
+        image.crossOrigin = "anonymous";
+        image.addEventListener('load', () => resolve(image),false)
+        image.addEventListener('error', (error) => reject(error))
+        // image.setAttribute('crossOrigin', 'anonymous') // needed to avoid cross-origin issues on CodeSandbox
         image.src = url
     })
 

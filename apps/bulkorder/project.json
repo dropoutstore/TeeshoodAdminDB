@@ -35,7 +35,8 @@
         "production": {
           "buildTarget": "bulk-orders:build:production",
           "hmr": false,
-          "host":true
+          "host":true,
+          "port": 4201
         }
       }
     },

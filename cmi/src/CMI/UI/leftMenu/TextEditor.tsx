@@ -44,7 +44,7 @@ export function TextEditor({ CMIHooks }: Props) {
       fill: '#000000',
       strokeWidth: 0,
       stroke: '#0000ff',
-      fontSize:80
+      fontSize:20
     },
   });
 

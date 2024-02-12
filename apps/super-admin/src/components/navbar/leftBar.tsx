@@ -7,7 +7,6 @@ import {
   Navbar,
   ScrollArea,
   ThemeIcon,
-  UnstyledButton,
   useMantineTheme,
 } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
@@ -15,22 +14,14 @@ import {
   IconChevronLeft,
   IconChevronRight,
   IconClock,
-  IconCreditCard,
-  IconFolder,
-  IconHome,
   IconLetterT,
   IconLogout,
-  IconMenuOrder,
-  IconNotes,
-  IconSchool,
   IconSettings,
   IconShoppingBag,
-  IconTestPipe,
-  IconTimeline,
+  IconShoppingCart,
   IconUser,
-  IconUsers,
 } from '@tabler/icons-react';
-import React, { useState } from 'react';
+import React from 'react';
 import LeftLink from './LeftLink';
 import logo from '../../assets/LOGO.png';
 import { signOut } from 'firebase/auth';
@@ -126,7 +117,7 @@ export function NavSections({
             setOpen={setOpen}
             name="Orders"
           />
-           <LeftLink
+          <LeftLink
             path={'/products'}
             icon={<IconClock size={16} color="black" />}
             color="#e0e0e0"
@@ -135,7 +126,16 @@ export function NavSections({
             setOpen={setOpen}
             name="Products"
           />
-           <LeftLink
+          <LeftLink
+            path={'/POD'}
+            icon={<IconShoppingCart size={16} color="black" />}
+            color="#e0e0e0"
+            tooglesize={tooglesize}
+            label={'POD'}
+            setOpen={setOpen}
+            name="POD"
+          />
+          <LeftLink
             path={'/fonts'}
             icon={<IconLetterT size={16} color="black" />}
             color="#e0e0e0"
@@ -144,7 +144,16 @@ export function NavSections({
             setOpen={setOpen}
             name="cmiFonts"
           />
-         {/* <LeftLink
+          <LeftLink
+            path={'/settings'}
+            icon={<IconSettings size={16} color="black" />}
+            color="#e0e0e0"
+            tooglesize={tooglesize}
+            label={'CMI Settings'}
+            setOpen={setOpen}
+            name="settings"
+          />
+          {/* <LeftLink
             path={'/department'}
             icon={<IconFolder size={16} color="black" />}
             color="#e0e0e0"
@@ -223,9 +232,14 @@ export function NavSections({
             </Group>
           </Box>
           <br />
-          <Button leftIcon={<IconLogout />} onClick={()=>{
-            signOut(auth)
-          }} variant="white" fullWidth>
+          <Button
+            leftIcon={<IconLogout />}
+            onClick={() => {
+              signOut(auth);
+            }}
+            variant="white"
+            fullWidth
+          >
             Logout
           </Button>
         </Navbar.Section>

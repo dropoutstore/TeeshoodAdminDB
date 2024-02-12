@@ -12,8 +12,12 @@ export interface productHookType {
   selectedColour: CMIProductColour;
   selectedSide: CMIProductSide;
   setSelectedSide: React.Dispatch<CMIProductSide>;
+  selectedGSM: number;
+  setSelectedGSM: React.Dispatch<React.SetStateAction<number>>;
+  selectedPrintType: string;
+  setSelectedPrintType: React.Dispatch<React.SetStateAction<string>>;
 }
-export function useProductHooks(product?: CMIproductType):productHookType {
+export function useProductHooks(product?: CMIproductType): productHookType {
   const [selectedProduct, setSelectedProduct] = useState<CMIproductType>(
     CMIproducts[0]
   );
@@ -21,17 +25,20 @@ export function useProductHooks(product?: CMIproductType):productHookType {
     CMIproducts[0].colours[0]
   );
   const [selectedSide, setSelectedSide] = useState<CMIProductSide>(
-    CMIproducts[0].colours[0].sides[1]
+    CMIproducts[0].colours[0].sides[0]
   );
+  const [selectedGSM, setSelectedGSM] = useState<number>(250);
+  const [selectedPrintType, setSelectedPrintType] = useState('');
   useEffect(() => {
     if (selectedProduct) {
       setSelectedColour(selectedProduct.colours[0]);
-      setSelectedSide(selectedProduct.colours[0].sides[1]);
+      setSelectedGSM(selectedProduct.GSM[0]);
+      setSelectedPrintType(selectedProduct.printTypes[0]);
     }
   }, [selectedProduct]);
   useEffect(() => {
     if (selectedColour) {
-      setSelectedSide(selectedColour.sides[1]);
+      setSelectedSide(selectedColour.sides[0]);
     }
   }, [selectedColour]);
   useEffect(() => {
@@ -45,5 +52,9 @@ export function useProductHooks(product?: CMIproductType):productHookType {
     selectedColour,
     selectedSide,
     setSelectedSide,
+    selectedGSM,
+    setSelectedGSM,
+    selectedPrintType,
+    setSelectedPrintType,
   };
 }

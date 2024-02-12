@@ -7,7 +7,6 @@ import {
   designHookType,
   useDesignHooks,
 } from './designHooks.client';
-import { testObjects } from './testObjects';
 import { resizeDimensions } from '../utils/resizeImageinsideBox';
 import { getImageDimensionsFromUrl } from '../utils/getImageDimensions';
 import { v4 } from 'uuid';
@@ -43,14 +42,14 @@ export default function useCMIHooks(): CMIHooksType {
     designHooks;
   useEffect(() => {
     if (designHooks.selectedObject) leftTab.setOpenedTab(null);
-    else leftTab.setOpenedTab('product');
+    // else leftTab.setOpenedTab('product');
   }, [designHooks.selectedObject]);
 
   useEffect(() => {
     if (productHooks.selectedColour) {
       const initDesigns: CMISideDesignType = {};
       for (const side of productHooks.selectedColour.sides) {
-        initDesigns[side.sideName] = testObjects;
+        initDesigns[side.sideName] = [];
       }
       setDesigns(initDesigns);
       setLoading(false);

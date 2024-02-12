@@ -1,8 +1,10 @@
 import useImage from 'use-image';
-import {Image, Transformer} from 'react-konva';
-import {useEffect, useRef, useState} from 'react';
+import { Image, Transformer } from 'react-konva';
+import { useEffect, useRef, useState } from 'react';
 // import {withCMIObject} from './ObjectHOC.client';
-import {shapeProps} from '../../CMI/hooks/designHooks.client';
+import { shapeProps } from '../../CMI/hooks/designHooks.client';
+import { IconX } from '@tabler/icons-react';
+import { CircularXIcon } from './closeIcon';
 
 type Props = {
   src: string;
@@ -25,7 +27,7 @@ export function CMIImageComponent({
   trRef,
 }: Props) {
   const [image] = useImage(src);
-
+  const [dragging, setDragging] = useState(false);
   useEffect(() => {
     if (isSelected) {
       // we need to attach transformer manually
@@ -45,13 +47,18 @@ export function CMIImageComponent({
           scaleY={shapeProps.flipY ? -1 : 1}
           scaleX={shapeProps.flipX ? -1 : 1}
           draggable
-          name="shape"
+          onDragStart={() => setDragging(true)}
+          onTransformStart={() => setDragging(true)}
+          name={shapeProps.id}
           onDragEnd={(e) => {
             onChange({
               ...shapeProps,
               x: e.target.x(),
               y: e.target.y(),
             });
+            setTimeout(() => {
+              setDragging(false);
+            }, 100);
           }}
           onTransformEnd={(e) => {
             // transformer is changing scale of the node
@@ -73,8 +80,14 @@ export function CMIImageComponent({
               width: Math.max(5, node.width() * scaleX),
               height: Math.max(node.height() * scaleY),
             });
+            setTimeout(() => {
+              setDragging(false);
+            }, 100);
           }}
         />
+        {/* {!dragging && isSelected && (
+          <CircularXIcon x={shapeProps.x} y={shapeProps.y} />
+        )} */}
         {/* {isSelected && (
                   <Transformer
                     ref={trRef}

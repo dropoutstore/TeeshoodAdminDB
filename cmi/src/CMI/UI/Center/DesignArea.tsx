@@ -5,6 +5,7 @@ import { SNAP_THRESHOLD, SNAP_LINE_STYLE } from '../../utils/snapGrids';
 import { ObjectRender } from './objectRender';
 import { CMIReferenceTypes } from '.';
 import { CMIHooksType } from '../../hooks';
+import { CircularXIcon } from '../../Objects/closeIcon';
 
 // import CMIImage from './objects/image.client';
 type Props = {
@@ -13,14 +14,10 @@ type Props = {
   references: CMIReferenceTypes;
 };
 
-export function DesignArea({
-  CMIHooks,
-  scaleFactor,
-  references,
-}: Props) {
-  const { setSelectObject,selectedObject } =  CMIHooks.designHooks;
+export function DesignArea({ CMIHooks, scaleFactor, references }: Props) {
+  const { setSelectObject, selectedObject } = CMIHooks.designHooks;
   const { selectedSide } = CMIHooks.productHooks;
-  const {trRef} = references
+  const { trRef } = references;
   const containerWidth = 500 * scaleFactor;
   const deselect = () => setSelectObject(null);
   const checkDeselect = (e: KonvaEventObject<MouseEvent | TouchEvent>) => {
@@ -254,36 +251,15 @@ export function DesignArea({
           width={500 * scaleFactor}
           height={500 * scaleFactor}
           onClick={(e) =>
-            e.target === stageRef.current && references.trRef?.current?.nodes([])
+            e.target === stageRef.current &&
+            references.trRef?.current?.nodes([])
           }
           onMouseDown={checkDeselect}
           onTouchStart={checkDeselect}
           ref={stageRef}
         >
           <Layer>
-            <Group
-              strokeWidth={2}
-              stroke={'#000'}
-              clipFunc={(ctx: any) => {
-                ctx.beginPath();
-                ctx.moveTo(left, top);
-                ctx.lineTo(left + width, top);
-                ctx.quadraticCurveTo(left + width, top, left + width, top);
-                ctx.lineTo(left + width, top + height);
-                ctx.quadraticCurveTo(
-                  left + width,
-                  top + height,
-                  left + width,
-                  top + height
-                );
-                ctx.lineTo(left, top + height);
-                ctx.quadraticCurveTo(left, top + height, left, top + height);
-                ctx.lineTo(left, top);
-                ctx.quadraticCurveTo(left, top, left, top);
-                ctx.closePath();
-              }}
-            >
-              <Rect
+          <Rect
                 x={left}
                 y={top}
                 id={'outerLayer'}
@@ -303,6 +279,27 @@ export function DesignArea({
                 height={height + 2}
                 dash={[10, 5]}
               />
+            <Group
+              clipFunc={(ctx: any) => {
+                ctx.beginPath();
+                ctx.moveTo(left, top);
+                ctx.lineTo(left + width, top);
+                ctx.quadraticCurveTo(left + width, top, left + width, top);
+                ctx.lineTo(left + width, top + height);
+                ctx.quadraticCurveTo(
+                  left + width,
+                  top + height,
+                  left + width,
+                  top + height
+                );
+                ctx.lineTo(left, top + height);
+                ctx.quadraticCurveTo(left, top + height, left, top + height);
+                ctx.lineTo(left, top);
+                ctx.quadraticCurveTo(left, top, left, top);
+                ctx.closePath();
+              }}
+            >
+             
               <ObjectRender
                 references={references}
                 CMIHooks={CMIHooks}
@@ -319,34 +316,41 @@ export function DesignArea({
             {vLines.map((item: any, i) => (
               <Line key={i} {...item} strokeScaleEnabled={false} />
             ))}
-             {Boolean(selectedObject) && (
-              <Transformer
-                ref={trRef}
-                onDragMove={onDragMove}
-                onDragEnd={() => {
-                  setHLines([]);
-                  setVLines([]);
-                }}
-                anchorCornerRadius={8}
-                enabledAnchors={
-                  selectedObject?.type === 'image'
-                    ? ['top-left', 'top-right', 'bottom-left', 'bottom-right']
-                    : ['middle-right', 'middle-left']
-                }
-                // anchorSize={25}
-                rotateAnchorOffset={8}
-                rotationSnaps={[
-                  30, 45, 60, 90, 120, 135, 150, 180, 0, -30, -45, -60, -90,
-                  -120, -135, -150,
-                ]}
-                boundBoxFunc={(oldBox, newBox) => {
-                  // limit resize
-                  if (newBox.width < 5 || newBox.height < 5) {
-                    return oldBox;
+            {Boolean(selectedObject) && (
+              <>
+                {/* <CircularXIcon
+                  x={selectedObject?.x ?? 0 + selectedSide.lm}
+                  y={selectedObject?.y ?? 0 + selectedSide.tm}
+                /> */}
+
+                <Transformer
+                  ref={trRef}
+                  onDragEnd={() => {
+                    setHLines([]);
+                    setVLines([]);
+                  }}
+                  onDragMove={onDragMove}
+                  anchorCornerRadius={8}
+                  enabledAnchors={
+                    selectedObject?.type === 'image'
+                      ? ['top-left', 'top-right', 'bottom-left', 'bottom-right']
+                      : ['middle-right', 'middle-left']
                   }
-                  return newBox;
-                }}
-              />
+                  // anchorSize={25}
+                  rotateAnchorOffset={8}
+                  rotationSnaps={[
+                    30, 45, 60, 90, 120, 135, 150, 180, 0, -30, -45, -60, -90,
+                    -120, -135, -150,
+                  ]}
+                  boundBoxFunc={(oldBox, newBox) => {
+                    // limit resize
+                    if (newBox.width < 5 || newBox.height < 5) {
+                      return oldBox;
+                    }
+                    return newBox;
+                  }}
+                />
+              </>
             )}
           </Layer>
         </Stage>

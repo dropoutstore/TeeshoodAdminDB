@@ -87,7 +87,7 @@ export function BulkOrder() {
             try {
               const { id } = (
                 await bulkOrderFunc({
-                  order: { ...values, resellerId: user?.uid },
+                  order: { ...values, resellerId: user?.uid, companyProfile },
                 })
               ).data as { id: string };
               navigate(`/bulk/checkout/${id}`);

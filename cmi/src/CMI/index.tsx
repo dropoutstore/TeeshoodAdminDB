@@ -1,25 +1,31 @@
-import DesignArea from './UI/Center';
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { TopEditor } from './UI/TopEdit';
 import LeftMenu from './UI/leftMenu/LeftMenu';
 import useCMIHooks from './hooks';
-import { Button } from '@mantine/core';
-import { calculatePrice } from './utils/calculatePrice';
+import Center from './UI/Center';
+import { Export } from './UI/Export';
 
 export function CMI() {
   const CMIHooks = useCMIHooks();
-  const { designHooks } = CMIHooks;
+  const {
+    designHooks: { loading },
+  } = CMIHooks;
+
   
+
   return (
     <div className="bg-white p-4 rounded-lg">
       <div className="md:flex block relative">
-        <Button size='xl' className="absolute right-0">Checkout ₹{calculatePrice(CMIHooks)}</Button>
+          <Export
+            CMIHooks={CMIHooks}
+          />
         <LeftMenu CMIHooks={CMIHooks} />
         <div className="w-full">
           <TopEditor CMIHooks={CMIHooks} />
-          {designHooks.loading ? (
+          {loading ? (
             <div className="w-full h-full" />
           ) : (
-            <DesignArea CMIHooks={CMIHooks} />
+            <Center CMIHooks={CMIHooks} />
           )}
         </div>
       </div>

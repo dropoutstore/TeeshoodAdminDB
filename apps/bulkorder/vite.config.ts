@@ -6,14 +6,14 @@ export default defineConfig({
   cacheDir: '../../node_modules/.vite/bulk-orders',
 
   server: {
-    port: 4200, 
+    port: 4201, 
     host: '0.0.0.0',
     https:true,
     cors:true,
   },
 
   preview: {
-    port: 4300,
+    port: 4301,
     host: '0.0.0.0',
   },
 

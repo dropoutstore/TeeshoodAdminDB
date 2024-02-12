@@ -10,7 +10,6 @@ export interface CMIproductType {
   description: React.ReactNode;
   basePrice: number;
   productCode: string;
-
   sizes: { size: string; price: number }[];
   GSM: number[];
   printInfo: string[];
@@ -44,12 +43,18 @@ export interface CMIProductSide {
   w: number;
   h: number;
 }
+const positions = {
+  front: { w: 14 * 15, h: 25 * 15, tm: 70, lm: 150 },
+  back: { w: 14 * 15, h: 25 * 15, tm: 70, lm: 150 },
+  left: { tm: 210, lm: 190, w: 11 * 15, h: 11 * 15 },
+  right: { tm: 210, lm: 145, w: 11 * 15, h: 11 * 15 },
+};
 export const CMIproducts: CMIproductType[] = [
   {
     name: 'Unisex T-Shirt Men',
     printTypes: ['DTF', 'DTG', 'Screen'],
-    basePrice:178,
-    
+    basePrice: 178,
+    productCode: 'ABCDEF',
     GSM: [250, 350, 400, 500],
     sizes: [
       { size: 'XS', price: 300 },
@@ -72,39 +77,41 @@ export const CMIproducts: CMIproductType[] = [
       {
         bgColour: '#fff',
         colorCode: '#fff',
+        printingCost: {
+          DTF: 1,
+          DTG: 1.5,
+          screen: 30,
+          embroidery: 25,
+        },
         sides: [
           {
             sideName: 'Front',
-            image: MenBlackFrontImg,
-            tm: 70,
-            lm: 150,
-            w: 210,
-            h: 380,
+            image: MenWhiteFrontImg,
+            printHeight: 20,
+            printWidth: 16,
+            ...positions.front,
           },
           {
             sideName: 'Back',
-            image: MenBlackBackImg,
-            tm: 100,
-            lm: 140,
-            w: 200,
-            h: 350,
+            image: MenWhiteBackImg,
+            printHeight: 20,
+            printWidth: 16,
+            ...positions.back,
           },
           {
             sideName: 'Left',
-            image: MenBlackLeftImg,
-            tm: 180,
-            lm: 250,
-            w: 150,
-            h: 200,
+            image: MenWhiteLeftImg,
+            printHeight: 20,
+            printWidth: 16,
+            ...positions.left,
           },
           {
             sideName: 'Right',
-            image: MenBlackLeftImg,
+            image: MenWhiteLeftImg,
             flip: true,
-            tm: 180,
-            lm: 250,
-            w: 150,
-            h: 200,
+            printHeight: 20,
+            printWidth: 16,
+            ...positions.right,
           },
         ],
         name: 'white',
@@ -112,39 +119,43 @@ export const CMIproducts: CMIproductType[] = [
       {
         bgColour: '#000',
         colorCode: '#000',
+        printingCost: {
+          DTF: 1,
+          DTG: 1.5,
+          screen: 30,
+          embroidery: 25,
+        },
         sides: [
           {
             sideName: 'Front',
             image: MenBlackFrontImg,
-            tm: 70,
-            lm: 150,
-            w: 210,
-            h: 380,
+            printHeight: 20,
+            printWidth: 16,
+            ...positions.front,
           },
           {
             sideName: 'Back',
             image: MenBlackBackImg,
-            tm: 100,
-            lm: 140,
-            w: 200,
-            h: 350,
+            printHeight: 20,
+            printWidth: 16,
+            ...positions.back,
           },
           {
             sideName: 'Left',
             image: MenBlackLeftImg,
-            tm: 180,
-            lm: 250,
-            w: 150,
-            h: 200,
+
+            printHeight: 20,
+            printWidth: 16,
+            ...positions.left,
           },
           {
             sideName: 'Right',
             image: MenBlackLeftImg,
             flip: true,
-            tm: 180,
-            lm: 250,
-            w: 150,
-            h: 200,
+
+            printHeight: 20,
+            printWidth: 16,
+            ...positions.right,
           },
         ],
         name: 'black',
@@ -154,6 +165,8 @@ export const CMIproducts: CMIproductType[] = [
   {
     name: 'Unisex T-Shirt Women',
     printTypes: ['DTF', 'DTG', 'Screen'],
+    basePrice: 178,
+    productCode: 'ABCDEF',
     sizes: [
       { size: 'XS', price: 300 },
       { size: 'S', price: 350 },
@@ -163,8 +176,9 @@ export const CMIproducts: CMIproductType[] = [
       { size: 'XXL', price: 400 },
       { size: '3XL', price: 500 },
       { size: '4XL', price: 500 },
+      { size: '5XL', price: 600 },
     ],
-    GSM: [250, 350, 400],
+    GSM: [250, 350],
     description:
       'IntelliFresh The garment is treated with FRESHON™ silver technology that effectively neutralizes odour-causing bacteria up to 99% for longer lasting freshness.',
     featuredImage: MenWhiteFrontImg,
@@ -177,39 +191,45 @@ export const CMIproducts: CMIproductType[] = [
         bgColour: '#fff',
         colorCode: '#fff',
         name: 'red',
+        printingCost: {
+          DTF: 1,
+          DTG: 1.5,
+          screen: 30,
+          embroidery: 25,
+        },
         sides: [
           {
             sideName: 'Front',
             image: MenWhiteFrontImg,
-            tm: 80,
-            lm: 140,
-            w: 200,
-            h: 350,
+
+            printHeight: 20,
+            printWidth: 16,
+            ...positions.front,
           },
           {
             sideName: 'Back',
             image: MenWhiteBackImg,
-            tm: 100,
-            lm: 140,
-            w: 200,
-            h: 350,
+
+            printHeight: 20,
+            printWidth: 16,
+            ...positions.back,
           },
           {
             sideName: 'Left',
             image: MenWhiteLeftImg,
-            tm: 180,
-            lm: 250,
-            w: 150,
-            h: 200,
+
+            printHeight: 3,
+            printWidth: 3,
+            ...positions.left,
           },
           {
             sideName: 'Right',
             flip: true,
             image: MenWhiteLeftImg,
-            tm: 180,
-            lm: 250,
-            w: 150,
-            h: 200,
+
+            printHeight: 3,
+            printWidth: 3,
+            ...positions.right,
           },
         ],
       },

@@ -1,6 +1,4 @@
 import { CMIProductDesignType } from '@admin/cmi';
-import { bulkOrderPaymentStatuses } from '../bulk/BulkOrder';
-import { CompanyProfile } from '../../companyProfile/form';
 
 export interface PODFileType {
   orderId: string;
@@ -72,4 +70,24 @@ export interface PODOrderType {
       orderId?: string;
     };
   };
+}
+
+export type bulkOrderPaymentStatuses = 'pending' | 'success';
+
+export interface CompanyProfile {
+  userName: string;
+  email: string;
+  organisationName: string;
+  address: addressType[];
+  phoneNumber: string;
+}
+export interface addressType {
+  addressLine1: string;
+  addressLine2: string;
+  landmark: string;
+  // email: string;
+  city: string;
+  state: string;
+  phoneNumber: string;
+  pincode: string;
 }

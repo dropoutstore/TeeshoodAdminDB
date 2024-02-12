@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { testObjects } from './testObjects';
 import { fontInterfaceType } from '../UI/leftMenu/TextEditor';
 
 export interface designHookType {

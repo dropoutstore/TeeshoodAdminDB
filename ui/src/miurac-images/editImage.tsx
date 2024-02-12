@@ -93,7 +93,7 @@ export default function EditImage({
               })) as string;
               getUrl(uploadedUrl);
             } catch (error) {
-              // console.log(error);
+              console.log(error);
             }
           }}
         >

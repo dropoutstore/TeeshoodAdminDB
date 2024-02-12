@@ -1,21 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { useEffect, useState } from 'react';
 import { TableComponent } from '@admin/table-component';
+import { Chip, Title, Text } from '@mantine/core';
 import {
-  Button,
-  Chip,
-  Title,
-  Select,
-  SegmentedControl,
-  Group,
-  HoverCard,
-  Text,
-  Popover,
-  Card,
-  List,
-} from '@mantine/core';
-import {
-  Query,
   collection,
   doc,
   getDocs,
@@ -29,26 +16,27 @@ import {
 } from 'firebase/firestore';
 import { db } from '@admin/configs';
 import OrdersExpanded from './expanded';
-import { ProductCard, bulkOrderType } from './BulkOrder';
+// import { ProductCard, PODOrderType } from './BulkOrder';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../app/store';
+import { PODOrderType } from './types';
 
-export function BulkOrdersTable() {
+export function PODOrdersTable() {
   const { user } = useSelector((state: RootState) => state.user);
   const [orders, setOrders] = useState<any[]>([]);
   useEffect(() => {
-    if(user?.uid){
+    if (user?.uid) {
       const q = query(
-        collection(db, 'bulkOrder'),
-        orderBy('createdAt', 'desc'),
-        where('resellerId', '==', user.uid),
+        collection(db, 'POD'),
+        // orderBy('createdAt', 'desc'),
+        where('uid', '==', user.uid),
         limit(10)
       );
-  
+
       const unsubscribe = onSnapshot(q, (snapshot) => {
-        setOrders(snapshot.docs.map((t) => t.data()));
+        setOrders(snapshot.docs.map((t) => ({ ...t.data(), id: t.id })));
       });
-  
+
       // Cleanup function
       return () => unsubscribe();
     }
@@ -56,9 +44,9 @@ export function BulkOrdersTable() {
 
   return (
     <div className="overflow-auto">
-      <Title className=""> Bulk Orders</Title>
+      <Title className=""> POD Orders</Title>
       <br />
-     
+
       <TableComponent
         tableProps={{
           data: orders,
@@ -72,35 +60,35 @@ export function BulkOrdersTable() {
             // sortFunction?: ColumnSortFunction<T>;
             {
               name: 'Order ID',
-              selector: (row: bulkOrderType & { id: string }) => '#' + row.id,
+              selector: (row: PODOrderType & { id: string }) => '#' + row.id,
               maxWidth: '60px',
             },
             {
               name: 'Order name',
-              selector: (row: bulkOrderType & { id: string }) => row.orderName,
+              selector: (row: PODOrderType & { id: string }) => row.id,
             },
             {
               name: 'Phone',
               //   @ts-ignore
-              selector: (row: bulkOrderType & { id: string }) => (
-                <Text className="w-fit">{row.address.phoneNumber}</Text>
+              selector: (row: PODOrderType & { id: string }) => (
+                <Text className="w-fit">{row.companyProfile?.phoneNumber}</Text>
               ),
             },
             // {
             //   name: 'Email',
-            //   selector: (row: bulkOrderType & {id:string}) => row.email,
+            //   selector: (row: PODOrderType & {id:string}) => row.email,
             // },
             {
               name: 'Status',
               //   @ts-ignore
-              selector: (row: bulkOrderType & { id: string }) => (
+              selector: (row: PODOrderType & { id: string }) => (
                 <Chip>created</Chip>
               ),
             },
             {
               name: 'Payment',
               //   @ts-ignore
-              selector: (row: bulkOrderType & { id: string }) =>
+              selector: (row: PODOrderType & { id: string }) =>
                 row.payment?.full.orderId ? (
                   <Chip>{row.payment?.full.status}</Chip>
                 ) : (
@@ -108,21 +96,15 @@ export function BulkOrdersTable() {
                 ),
             },
             {
-              name: 'Item',
+              name: 'Items',
               //   @ts-ignore
-              selector: (row: bulkOrderType & { id: string }) => {
-                return (
-                  <div>
-                    {row.products.map((product: any, index: number) => (
-                      <ProductCard product={product} />
-                    ))}
-                  </div>
-                );
+              selector: (row: PODOrderType & { id: string }) => {
+                return <div>{row.orders.length} items</div>;
               },
             },
           ],
-          expandableRowsComponent: (order) => (
-            <OrdersExpanded order={order.data} />
+          expandableRowsComponent: (order:{data:PODOrderType}) => (
+            <OrdersExpanded PODOrder={order.data} />
           ),
         }}
         environment={{
@@ -163,10 +145,3 @@ export function BulkOrdersTable() {
     </div>
   );
 }
-
-export const TH_ORDER_STATUSES = [
-  { value: 'CREATED', label: 'Created' },
-  { value: 'PRINT', label: 'Ready For Print' },
-  { value: 'PRINTCOMPLETE', label: 'Printing Completed' },
-  { value: 'SHIPPED', label: 'Shipped' },
-];

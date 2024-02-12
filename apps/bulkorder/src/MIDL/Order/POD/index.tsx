@@ -1,4 +1,4 @@
-import { Button, Modal } from '@mantine/core';
+import { Button, Modal, Title } from '@mantine/core';
 import { IconPlus } from '@tabler/icons-react';
 import { useState } from 'react';
 import { UploadPODOrdersTable } from './uploadShopify';
@@ -21,7 +21,8 @@ export function POD() {
         onClose={() => setPodOrderModal(false)}
         opened={podOrderModal}
         fullScreen
-        title=""
+        title={<Title align='center' >POD Orders</Title>}
+        classNames={{title:"w-full"}}
       >
         <UploadPODOrdersTable />
       </Modal>

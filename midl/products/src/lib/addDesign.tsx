@@ -14,8 +14,6 @@ import { collection, doc, updateDoc } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
-import { defaultErrorMessage } from '../../../../apps/super-admin/src/constants';
-import { environment } from '../../../../apps/super-admin/src/environment';
 import { designType } from './ProductsExpanded';
 import ProductDesigns from './designs';
 type Props = {
@@ -82,9 +80,7 @@ export default function AddDesign({ product }: Props) {
 
                 if (check?.find((t: any) => t.sideName === values.sideName)) {
                   notifications.show({
-                    message: environment.production
-                      ? JSON.stringify('Side Name already exist')
-                      : defaultErrorMessage,
+                    message: 'Side Name already exist',
                   });
                 } else {
                   target.splice(selectedDesign.index, 1, values);
@@ -112,17 +108,13 @@ export default function AddDesign({ product }: Props) {
                   setDesignModal(false);
                 } else {
                   notifications.show({
-                    message: environment.production
-                      ? JSON.stringify('Side Name already exists')
-                      : defaultErrorMessage,
+                    message:'Side Name already exists'
                   });
                 }
               }
             } catch (error: any) {
               notifications.show({
-                message: environment.production
-                  ? JSON.stringify(error.message)
-                  : defaultErrorMessage,
+                message: error.message,
               });
             } finally {
               setLoading(false);

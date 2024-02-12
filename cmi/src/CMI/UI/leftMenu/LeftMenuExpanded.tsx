@@ -34,9 +34,7 @@ export default function LeftMenuExpanded({ leftTabHook, CMIHooks }: Props) {
       case 'QR':
         return <QRcode CMIHooks={CMIHooks} />;
       default:
-        return (
-          <div />
-        );
+        return matches && <Products productHook={productHooks} />;
     }
   };
   if (designHooks.selectedObject && matches)
